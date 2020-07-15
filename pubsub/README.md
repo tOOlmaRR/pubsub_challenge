@@ -33,7 +33,6 @@ When assembling a "build", or a copy of what you will deploy over to your web se
 ### Subscribe (API Endpoint)
 ```
 POST /subscribe/{TOPIC}
-
 BODY { url: "http://localhost:8000/event"}
 
 Create a subscription for all events of {TOPIC} and forward data to http://localhost:8000/event
@@ -42,7 +41,6 @@ Create a subscription for all events of {TOPIC} and forward data to http://local
 ### Publish (API Endpoint)
 ```
 POST /publish/{TOPIC}
-
 BODY { "message": "hello"}
 
 Publishes whatever is passed in the body (in JSON format) to the supplied topic in the URL. This endpoint will trigger a forwarding of the data in the body to all of the currently subscribed URL's for that topic.
