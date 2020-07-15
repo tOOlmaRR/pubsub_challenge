@@ -9,7 +9,11 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
         <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <style>
             html, body {
                 background-color: #fff;
@@ -86,17 +90,21 @@
 
                 <p>This page shows events published to this particular URL</p>
 
-                <table class="table" style="width:100%; border:#000 solid 1px">
-                    <tr>
-                        <th>Topic</th>
-                        <th>Message</th>
-                    </tr>
-                    @foreach ($messages as $message)
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>{{ $message->topic }}</td>
-                            <td>{{ $message->message }}</td>
+                            <th>Topic</th>
+                            <th>Message</th>
                         </tr>
-                    @endforeach
+                    </thead>
+                    <tbody>
+                        @foreach ($messages as $message)
+                            <tr>
+                                <td>{{ $message->topic }}</td>
+                                <td>{{ $message->message }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>
