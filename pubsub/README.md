@@ -52,9 +52,9 @@ URL: http://localhost:8000/event
 
 A test page that displays published event data
 
-### Welcome (Webpage)
+### Homepage (Webpage)
 
-URL: http://localhost:8000/welcome
+URL: http://localhost:8000/
 
 Just a welcome page to confirm that you serving that the API is serving correctly.
 

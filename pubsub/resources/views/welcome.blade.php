@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>PubSub Welcome Page</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -61,6 +61,10 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .endpoints {
+                text-align: left;
+            }
         </style>
     </head>
     <body>
@@ -81,19 +85,21 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Welcome!
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <p>If you are seeing this page, chances are that you have your web server set up correctly to server this site/API.</p>
+
+                <div class="endpoints">
+                    <h2>Endpoints:</h2>
+                    <ul>
+                        <li><a href="/api/aubscribe">Subscribe</a></li>
+                        <li><a href="/api/publish">Publish</a></li>
+                    </ul>
+                    <p>To see published events, navigate to the <a href="/event.php">event page</a></p>
                 </div>
+
+
             </div>
         </div>
     </body>
