@@ -93,8 +93,9 @@
                 <div class="events">
                     <h2>Events:</h2>
                     <ul>
-                        <li>Event 1</li>
-                        <li>Event 2</li>
+                        @foreach($messages as $message)
+                            <li>{{ $message->topic . ' => ' . $message->message }}</li>
+                        @endforeach
                     </ul>
                 </div>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Event;
 use App\Http\Resources\EventResource;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class EventController extends Controller
 {
@@ -27,5 +28,16 @@ class EventController extends Controller
         ]);
 
         return new EventResource($event);
+    }
+
+    /**
+     *  @return View
+     */
+    public function view() : View
+    {
+        $messages = Event::all();
+        return view('event')->with([
+            'messages' => $messages
+        ]);
     }
 }
