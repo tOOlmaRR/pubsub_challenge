@@ -4,14 +4,6 @@ A simple publishing/subscription sub-system using HTTP requests.
 
 ## Installing / Getting Started
 
-Simply clone project into a folder of your choosing from GitHub.
-
-### Initial Configuration
-
-Nothing special to do here at the moment.
-
-## Developing
-
 The following are instructions to get the application set and running up on your machine
 1. Clone this repo to a local folder
 1. Create a database named "pubsub"
@@ -50,19 +42,6 @@ The following are instructions to get the application set and running up on your
 
 1. Navigate to <a href="http://localhost:8000/">http://localhost:8000/</a> in a browser. The Welcome page should be displayed if everything was set up correctly.
 
-### Building
-
-When assembling a "build", or a copy of what you will deploy over to your web server, you can manually exclude some files when copying over to your web server, such as:
-1. This readme
-1. The .git folder
-1. The .gitignore file
-
-### Deploying / Publishing
-
-1. Copy all contents from your build above to your web server root.
-1. Ensure all necessary site bindings are in place to serve this site as a localhost request on port 8000.
-1. Open up a browser and surf on over to http://localhost:8000/ and confirm that you see the "Welcome!" page
-
 ## Features
 
 ### Subscribe (API Endpoint)
@@ -82,30 +61,27 @@ Publishes whatever is passed in the body (in JSON format) to the supplied topic 
 ```
 
 ### Event (Webpage)
+```
+GET: /event
 
-URL: http://localhost:8000/event
-
-A test page that displays published event data
+A test page that displays published event data that this page is subscribe to.
+```
 
 ### Homepage (Webpage)
+```
+GET: /
 
-URL: http://localhost:8000/
-
-Just a welcome page to confirm that you serving that the API is serving correctly.
-
-## Configuration
-
-No configuration options at the moment
+Just a welcome page to confirm that the basic application is serving correctly.
+```
 
 ## Contributing
 
-This is only a sinple one-off coding exercise at the moent. Feel free to fork and use as you like, but this system will not be maintained going forward.
+This is only a simple one-off coding exercise at the moment. Feel free to fork and use as you like, but this system will not be maintained going forward.
 
 ## Links
 
 Original requirements for this exercise can be found here: https://pangaea-interviews.now.sh/be
 
-
 ## Licensing
 
-No license. Do whatever you want with this!
+No license. Do whatever you'd like with this!
