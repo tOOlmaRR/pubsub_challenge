@@ -4,64 +4,48 @@ A simple publishing/subscription sub-system using HTTP requests.
 
 ## Installing / Getting Started
 
-Simply clone project into a folder of your choosing from GitHub.
-
-### Initial Configuration
-
-Nothing special to do here at the moment.
-
-## Developing
-
 The following are instructions to get the application set and running up on your machine
-1. Clone this repo to a local folder
-1. Create a database named "pubsub"
-1. Create a copy of the ".env.example" file as ".env"
-1. Update the "DB_*" variables to the desired values (specifically, DB_DATABASE=pubsub, but you may need to update others depending on your database server configuration and user credentials)
-1. In a terminal window, navigate to the pubsub folder and install both Composer and NPM packages using the following commands (note: these installations will likely take a while to complete):
+1. Clone this repo to a local folder.
+1. Create a database named "pubsub". Do not create any schema (tables etc.). These will be created using Laravel's ORM (Eloquent) via migrations.
+1. Create a copy of the ".env.example" file and name it ".env". This file defines the application configuration.
+1. Update the "DB_*" variables within the ".env" file to the desired values. Specifically, DB_DATABASE should be set to _pubsub_, but you may also need to update others depending on your database server configuration and user credentials.
+1. In a terminal window, navigate to the _pubsub_ folder and install both Composer and NPM packages using the following commands (note: these installations will likely take a while to complete):
     ```
     cd pubsub
     composer install
     npm install
     ```
-1. Generate an application key and set the value in your new ".env" file in the "" variable's value. Use this command:
+1. Generate an application key (to secure user sessions and encrypted data) by using this command:
     ```
     php artisan key:generate
     ```
+    Your ".env" file should be updated automatically (see the "APP_KEY" setting).
+
 1. Create a configuration cache using the following command:
     ```
     php artisan config:cache
     ```
-1. Migrate database schemas to the database you created and wired up earlier using this command:
+1. Migrate database schema to the database that you created and wired up earlier using this command:
     ```
     php artisan migrate
     ```
-1. Use Webpack to compile resources and continue to compile resources as they changed by running this command:
+1. Use Webpack to compile resources and continue to compile resources in the background as they are changed by running this command:
     ```
     npm run watch
     ```
-    Keep this terminal window open while you are developing and testing to ensure that resources are compiled into the public folder as you add, remove and update them.
+    __Note__: Keep this terminal window open while you are developing and testing to ensure that resources are compiled into the public folder as you add, remove and update them.
 
-1. Open a new terminal window, navigate to the 'pubsub' folder and get a test server running by exceuting the following commands:
+1. Open a new terminal window, navigate to the _pubsub_ folder and get a test server running by executing the following commands:
     ```
     cd pubsub
     php artisan serve
     ```
-    As with the webpack compiler, keep this window open as you are developing and testing to keep the web server running
+    __Note__: As with the Webpack compiler, keep this window open as you are developing and testing to keep the web server running.
 
 1. Navigate to <a href="http://localhost:8000/">http://localhost:8000/</a> in a browser. The Welcome page should be displayed if everything was set up correctly.
 
-### Building
+1. Feel free to test out the Subscribe and Publish endpoints using Postman or some other utility. I have shared a small Postman collection at the following URL: https://www.postman.com/collections/676b9f44ac22b9a9bc3c. If you have Postman installed, you can import this collection via this URL.
 
-When assembling a "build", or a copy of what you will deploy over to your web server, you can manually exclude some files when copying over to your web server, such as:
-1. This readme
-1. The .git folder
-1. The .gitignore file
-
-### Deploying / Publishing
-
-1. Copy all contents from your build above to your web server root.
-1. Ensure all necessary site bindings are in place to serve this site as a localhost request on port 8000.
-1. Open up a browser and surf on over to http://localhost:8000/ and confirm that you see the "Welcome!" page
 
 ## Features
 
@@ -82,30 +66,27 @@ Publishes whatever is passed in the body (in JSON format) to the supplied topic 
 ```
 
 ### Event (Webpage)
+```
+GET: /event
 
-URL: http://localhost:8000/event
-
-A test page that displays published event data
+A test page that displays published event data that this page is subscribe to.
+```
 
 ### Homepage (Webpage)
+```
+GET: /
 
-URL: http://localhost:8000/
-
-Just a welcome page to confirm that you serving that the API is serving correctly.
-
-## Configuration
-
-No configuration options at the moment
+Just a welcome page to confirm that the basic application is serving correctly.
+```
 
 ## Contributing
 
-This is only a sinple one-off coding exercise at the moent. Feel free to fork and use as you like, but this system will not be maintained going forward.
+This is only a simple one-off coding exercise at the moment. Feel free to fork and use as you like, but this system will not be maintained going forward.
 
 ## Links
 
 Original requirements for this exercise can be found here: https://pangaea-interviews.now.sh/be
 
-
 ## Licensing
 
-No license. Do whatever you want with this!
+No license. Do whatever you'd like with this!
