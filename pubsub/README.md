@@ -1,5 +1,4 @@
 # Publishing/Subcribing Sub-System
-> Additional information or tagline
 
 A simple publishing/subscription sub-system using HTTP requests.
 
@@ -13,7 +12,43 @@ Nothing special to do here at the moment.
 
 ## Developing
 
-Once you've cloned the repo, and set it up in a test environment (see "Installing / Getting Started" above), just dig in and have fun!
+The following are instructions to get the application set and running up on your machine
+1. Clone this repo to a local folder
+1. Create a database named "pubsub"
+1. Create a copy of the ".env.example" file as ".env"
+1. Update the "DB_*" variables to the desired values (specifically, DB_DATABASE=pubsub, but you may need to update others depending on your database server configuration and user credentials)
+1. In a terminal window, navigate to the pubsub folder and install both Composer and NPM packages using the following commands (note: these installations will likely take a while to complete):
+    ```
+    cd pubsub
+    composer install
+    npm install
+    ```
+1. Generate an application key and set the value in your new ".env" file in the "" variable's value. Use this command:
+    ```
+    php artisan key:generate
+    ```
+1. Create a configuration cache using the following command:
+    ```
+    php artisan config:cache
+    ```
+1. Migrate database schemas to the database you created and wired up earlier using this command:
+    ```
+    php artisan migrate
+    ```
+1. Use Webpack to compile resources and continue to compile resources as they changed by running this command:
+    ```
+    npm run watch
+    ```
+    Keep this terminal window open while you are developing and testing to ensure that resources are compiled into the public folder as you add, remove and update them.
+
+1. Open a new terminal window, navigate to the 'pubsub' folder and get a test server running by exceuting the following commands:
+    ```
+    cd pubsub
+    php artisan serve
+    ```
+    As with the webpack compiler, keep this window open as you are developing and testing to keep the web server running
+
+1. Navigate to <a href="http://localhost:8000/">http://localhost:8000/</a> in a browser. The Welcome page should be displayed if everything was set up correctly.
 
 ### Building
 
@@ -24,7 +59,7 @@ When assembling a "build", or a copy of what you will deploy over to your web se
 
 ### Deploying / Publishing
 
-1. Copy all contents from your buidl above to your web server root.
+1. Copy all contents from your build above to your web server root.
 1. Ensure all necessary site bindings are in place to serve this site as a localhost request on port 8000.
 1. Open up a browser and surf on over to http://localhost:8000/ and confirm that you see the "Welcome!" page
 
