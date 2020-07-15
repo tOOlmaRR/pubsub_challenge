@@ -61,10 +61,6 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
-
-            .events {
-                text-align: left;
-            }
         </style>
     </head>
     <body>
@@ -90,15 +86,18 @@
 
                 <p>This page shows events published to this particular URL</p>
 
-                <div class="events">
-                    <h2>Events:</h2>
-                    <ul>
-                        @foreach($messages as $message)
-                            <li>{{ $message->topic . ' => ' . $message->message }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-
+                <table class="table" style="width:100%; border:#000 solid 1px">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Message</th>
+                    </tr>
+                    @foreach ($messages as $message)
+                        <tr>
+                            <td>{{ $message->topic }}</td>
+                            <td>{{ $message->message }}</td>
+                        </tr>
+                    @endforeach
+                </table>
             </div>
         </div>
     </body>
