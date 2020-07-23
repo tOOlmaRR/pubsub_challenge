@@ -6,8 +6,14 @@ A simple publishing/subscription sub-system using HTTP requests.
 
 The following are instructions to get the application set and running up on your machine
 1. Clone this repo to a local folder.
-1. Create a database named "pubsub". Do not create any schema (tables etc.). These will be created using Laravel's ORM (Eloquent) via migrations.
-1. Create a copy of the ".env.example" file and name it ".env". This file defines the application configuration.
+1. Create two databases, one named _pubsub_ and another named _pubsub\_testing_. Do not create any schema (tables etc.). These will be created using Laravel's ORM (Eloquent) via migrations.
+1. Create a copy of the ".env.example" file and name it ".env". This file defines the local environment configuration.
+1. Generate an application key (to secure user sessions and encrypted data) by using this command:
+    ```
+    php artisan key:generate
+    ```
+    Your ".env" file should be updated automatically (see the "APP_KEY" setting).
+1. Create a copy of your new ".env" file (now containing the generated application key), name it ".env.testing", update DB_DATABASE to _pubsub\_testing_, and update APP_ENV to _testing_. This file defines the "testing" environment configuration which is used by automated tests.
 1. Update the "DB_*" variables within the ".env" file to the desired values. Specifically, DB_DATABASE should be set to _pubsub_, but you may also need to update others depending on your database server configuration and user credentials.
 1. In a terminal window, navigate to the _pubsub_ folder and install both Composer and NPM packages using the following commands (note: these installations will likely take a while to complete):
     ```
@@ -15,20 +21,17 @@ The following are instructions to get the application set and running up on your
     composer install
     npm install
     ```
-1. Generate an application key (to secure user sessions and encrypted data) by using this command:
-    ```
-    php artisan key:generate
-    ```
-    Your ".env" file should be updated automatically (see the "APP_KEY" setting).
-
-1. Create a configuration cache using the following command:
+1. Create a configuration cache for both local and testing environments by using the following commands:
     ```
     php artisan config:cache
+    php artisan config:cache --env=testing
     ```
-1. Migrate database schema to the database that you created and wired up earlier using this command:
+1. Migrate database schema to both databases that you created and wired up earlier using these commands:
     ```
     php artisan migrate
+    php artisan migrate --env=testing
     ```
+    This also creates the migration table in the database for tracking migrations
 1. Use Webpack to compile resources and continue to compile resources in the background as they are changed by running this command:
     ```
     npm run watch
@@ -46,6 +49,10 @@ The following are instructions to get the application set and running up on your
 
 1. Feel free to test out the Subscribe and Publish endpoints using Postman or some other utility. I have shared a small Postman collection at the following URL: https://www.postman.com/collections/676b9f44ac22b9a9bc3c. If you have Postman installed, you can import this collection via this URL.
 
+1. Try running all automated tests that have been created for this application by running the following command:
+    ```
+    php artisan test
+    ```
 
 ## Features
 
