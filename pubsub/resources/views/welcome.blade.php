@@ -96,7 +96,7 @@
                         <li><a href="/api/aubscribe">Subscribe</a></li>
                         <li><a href="/api/publish">Publish</a></li>
                     </ul>
-                    <p>To see published events, navigate to the <a href="/event.php">event page</a></p>
+                    <p>To see published events, navigate to the <a href="/event">event page</a></p>
                 </div>
 
 
