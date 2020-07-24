@@ -35,22 +35,17 @@ class EventController extends Controller
     /**
      *  @return View
      */
-    public function view() : View
+    public function view(Request $request) : View
     {
-        if ( (! empty($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https') ||
-            (! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ||
-            (! empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443') ) {
-            $scheme = 'https://';
-        } else {
-            $scheme = 'http://';
-        }
+        $currentUrl = $request->fullUrl();
 
-        $currentUrl = $scheme . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        // treat 127.0.0.1 as localhost to standardize the request URLs
+        $currentUrl = str_contains($currentUrl, '127.0.0.1') ? str_replace('127.0.0.1', 'localhost', $currentUrl) : $currentUrl;
 
         $messages = DB::table('events')
         ->where('subscriptions.url', $currentUrl)
         ->leftJoin('subscriptions', 'events.topic', '=', 'subscriptions.topic')
-        ->select('subscriptions.url', 'events.topic', 'events.message')
+        ->select('events.topic', 'events.message')
         ->get();
 
         return view('event')->with([
