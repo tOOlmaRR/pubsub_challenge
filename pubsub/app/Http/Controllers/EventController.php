@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\Http\Resources\EventResource;
-use App\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
