@@ -21,10 +21,9 @@ The following are instructions to get the application set and running up on your
     composer install
     npm install
     ```
-1. Create a configuration cache for both local and testing environments by using the following commands:
+1. Create a configuration cache for both the local environment by using the following commands:
     ```
     php artisan config:cache
-    php artisan config:cache --env=testing
     ```
 1. Migrate database schema to both databases that you created and wired up earlier using these commands:
     ```
