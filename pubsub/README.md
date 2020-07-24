@@ -4,27 +4,29 @@ A simple publishing/subscription sub-system using HTTP requests.
 
 ## Installing / Getting Started
 
-The following are instructions to get the application set and running up on your machine
-1. Clone this repo to a local folder.
-1. Create two databases, one named _pubsub_ and another named _pubsub\_testing_. Do not create any schema (tables etc.). These will be created using Laravel's ORM (Eloquent) via migrations.
+The following are instructions to get the application set up and running on your machine:
+1. Clone this repo into a local folder.
+1. Create two databases in mySQL, one named _pubsub_ and another named _pubsub\_testing_. Do not create any schema (tables etc.); these will be created using Laravel's ORM (Eloquent) via migrations.
 1. Create a copy of the ".env.example" file and name it ".env". This file defines the local environment configuration.
-1. Generate an application key (to secure user sessions and encrypted data) by using this command:
+1. In a terminal window, navigate to the _pubsub_ folder and generate an application key (to secure user sessions and encrypted data) by using this command:
     ```
+    cd pubsub
     php artisan key:generate
     ```
     Your ".env" file should be updated automatically (see the "APP_KEY" setting).
 1. Create a copy of your new ".env" file (now containing the generated application key), name it ".env.testing", update DB_DATABASE to _pubsub\_testing_, and update APP_ENV to _testing_. This file defines the "testing" environment configuration which is used by automated tests.
 1. Update the "DB_*" variables within the ".env" file to the desired values. Specifically, DB_DATABASE should be set to _pubsub_, but you may also need to update others depending on your database server configuration and user credentials.
-1. In a terminal window, navigate to the _pubsub_ folder and install both Composer and NPM packages using the following commands (note: these installations will likely take a while to complete):
+1. Install both Composer and NPM packages using the following commands (note: these installations will likely take a while to complete):
     ```
-    cd pubsub
     composer install
     npm install
     ```
-1. Create a configuration cache for both the local environment by using the following commands:
+1. (optional) Create configuration and route cache files for the local environment by using the following commands:
     ```
     php artisan config:cache
+    php artisan route:cache
     ```
+    This isn't necessary locally, but in production, we'd want to do this to potentially boost performance.
 1. Migrate database schema to both databases that you created and wired up earlier using these commands:
     ```
     php artisan migrate
