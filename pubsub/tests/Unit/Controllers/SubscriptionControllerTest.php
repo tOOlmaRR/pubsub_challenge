@@ -82,7 +82,7 @@ class SubscriptionControllerTest extends TestCase
     /**
      * @test
      * @group Controllers
-     * @testDox A request to the subscribe endpoint with a URL parameter should result in a single call to the repository's "create" method, and there should be no validation errors in session
+     * @testDox A request to the subscribe endpoint with a non-empty URL parameter should result in a single call to the repository's "create" method, and there should be no validation errors in session
      *
      * @return void
      */
