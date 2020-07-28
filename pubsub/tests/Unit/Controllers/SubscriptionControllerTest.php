@@ -28,7 +28,7 @@ class SubscriptionControllerTest extends TestCase
     /**
      * @test
      * @group Controllers
-     * @testDox An empty URL in a subscription request should return null
+     * @testDox A request to the subscribe endpoint without the URL parameter should result in an error in session for the 'url' key, no calls to the repository's "create" method, and should redirect the response
      *
      * @return void
      */
@@ -37,9 +37,34 @@ class SubscriptionControllerTest extends TestCase
         // mock up the repository
         $this->mockRepository
             ->shouldReceive('create')
-            ->with([
-                'url' => '',
-            ])
+            // set expectations - the create method should never be called (due to validation check)
+            ->times(0);
+
+        // register the mock repository
+        $this->app->instance('App\Repositories\SubscriptionRepositoryInterface', $this->mockRepository);
+
+        // now make the API request and capture the response
+        $responseObject = $this->call('POST', '/api/v1/subscribe/testtopic', [
+            'url' => ''
+        ]);
+
+        // assertions
+        $responseObject->assertSessionHasErrors('url');
+        $responseObject->assertStatus(302);
+    }
+
+    /**
+     * @test
+     * @group Controllers
+     * @testDox A request to the subscribe endpoint without the URL parameter should result in an error in session for the 'url' key, no calls to the repository's "create" method, and should redirect the response
+     *
+     * @return void
+     */
+    public function subscribeRequestWithNoUrlParameterIsInvalid()
+    {
+        // mock up the repository
+        $this->mockRepository
+            ->shouldReceive('create')
             // set expectations - the create method should never be called (due to validation check)
             ->times(0);
 
@@ -52,5 +77,37 @@ class SubscriptionControllerTest extends TestCase
         // assertions
         $responseObject->assertSessionHasErrors('url');
         $responseObject->assertStatus(302);
+    }
+
+    /**
+     * @test
+     * @group Controllers
+     * @testDox A request to the subscribe endpoint with a URL parameter should result in a single call to the repository's "create" method, and there should be no validation errors in session
+     *
+     * @return void
+     */
+    public function subscribeRequestWithUrlParameterIsValid()
+    {
+        // mock up the repository
+        $this->mockRepository
+            ->shouldReceive('create')
+            ->with([
+                'url' => 'someValidURL',
+                'topic' => 'testtopic'
+            ])
+            // set expectations - the create method should be called once and return
+            ->once();
+
+        // register the mock repository
+        $this->app->instance('App\Repositories\SubscriptionRepositoryInterface', $this->mockRepository);
+
+        // now make the API request and capture the response
+        $responseObject = $this->call('POST', '/api/v1/subscribe/testtopic', [
+            'url' => 'someValidURL'
+        ]);
+
+        // assertions
+        $responseObject->assertSessionHasNoErrors();
+        $responseObject->assertOk();
     }
 }
