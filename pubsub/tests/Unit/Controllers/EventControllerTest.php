@@ -94,7 +94,7 @@ class EventControllerTest extends TestCase
             'message' => 'some test message',
             'topic' => 'testtopic',
         ])
-         // set expectations - the create method should never be called (due to validation check)
+         // set expectations - the create method should be called once
          ->times(1);
 
         // register the mock repository
@@ -104,6 +104,56 @@ class EventControllerTest extends TestCase
         $responseObject = $this->call('POST', '/api/v1/publish/testtopic', [
             'message' => 'some test message',
         ]);
+
+        // assertions
+        $responseObject->assertSessionHasNoErrors();
+        $responseObject->assertOk();
+    }
+
+    /**
+     * @test
+     * @group Controllers
+     * @testDox A request to the "allMessagesForCurrentPage" method with an "currentUrl" value should result in a single call to the repository's "view" method, and there should be no validation errors in session
+     */
+    public function viewRequestWithUrlValueIsValid()
+    {
+        // mock up the repository
+        $this->mockRepository
+            ->shouldReceive('allMessagesForCurrentPage')
+            ->with('http://localhost/event')
+            // set expectations - the view method should be called once
+            ->times(1);
+
+        // register the mock repository
+        $this->app->instance('App\Repositories\EventRepositoryInterface', $this->mockRepository);
+
+        // now make the request and capture the response
+        $responseObject = $this->call('GET', '/event', [], [], [], ['localhost']);
+
+        // assertions
+        $responseObject->assertSessionHasNoErrors();
+        $responseObject->assertOk();
+    }
+
+        /**
+     * @test
+     * @group Controllers
+     * @testDox A request to the "allMessagesForCurrentPage" method with "127.0.0.1" value should be treated like localhost
+     */
+    public function viewRequestWith_127_0_0_1UrlValueTreatedLikeLocalhost()
+    {
+        // mock up the repository
+        $this->mockRepository
+            ->shouldReceive('allMessagesForCurrentPage')
+            ->with('http://localhost/event')
+            // set expectations - the view method should be called once
+            ->times(1);
+
+        // register the mock repository
+        $this->app->instance('App\Repositories\EventRepositoryInterface', $this->mockRepository);
+
+        // now make the request and capture the response
+        $responseObject = $this->call('GET', 'http://127.0.0.1/event');
 
         // assertions
         $responseObject->assertSessionHasNoErrors();

@@ -95,7 +95,7 @@ class SubscriptionControllerTest extends TestCase
                 'url' => 'someValidURL',
                 'topic' => 'testtopic'
             ])
-            // set expectations - the create method should be called once and return
+            // set expectations - the create method should be called once
             ->once();
 
         // register the mock repository
