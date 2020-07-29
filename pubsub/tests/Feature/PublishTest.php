@@ -11,7 +11,7 @@ class PublishTest extends TestCase
     /**
      * @test
      * @group Publish
-     * @testDox Confirm that the Publish endpoint does not resolve for a GET request, with out without a topic in the URL
+     * @testDox Confirm that the Publish endpoint does not resolve for a GET request, with or without a topic in the URL
      * @return void
      */
     public function publishEndpointGetRequestDoesNotResolve()
