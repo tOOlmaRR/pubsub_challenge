@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\EventResource;
 use App\Repositories\EventRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class EventController extends Controller
@@ -59,6 +60,10 @@ class EventController extends Controller
 
         // get messages for current URL from data source
         $messages = $this->eventRepository->allMessagesForCurrentPage($currentUrl);
+
+        if (is_null($messages)) {
+            $messages = new Collection();
+        }
 
         return view('event')->with([
             'messages' => $messages
